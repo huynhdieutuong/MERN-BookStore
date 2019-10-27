@@ -7,10 +7,12 @@ const {
   getSeller
 } = require('../controllers/seller.controller');
 
+const validates = require('../validates/seller.validate');
+
 // @route   POST  api/seller/register
 // @desc    Register seller
 // @access  Public
-// router.post('/register', register);
+router.post('/register', validates.register, register);
 
 // @route   POST  api/seller/login
 // @desc    Login seller
