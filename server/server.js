@@ -14,11 +14,16 @@ mongoose
   .then(res => console.log('MongoDB Connected!'))
   .catch(err => console.error(err));
 
-// Middleware
+// Middlewares
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => res.send('Hello'));
+app.use('/api/books', require('./routes/books.route'));
+app.use('/api/categories', require('./routes/categories.route'));
+app.use('/api/authors', require('./routes/authors.route'));
+app.use('/api/seller', require('./routes/seller.route'));
+app.use('/api/buyer', require('./routes/buyer.route'));
+app.use('/api/admin', require('./routes/admin.route'));
 
 // Port
 const port = process.env.PORT || 5000;
