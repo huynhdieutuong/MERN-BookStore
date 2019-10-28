@@ -7,6 +7,8 @@ const {
   getSeller
 } = require('../controllers/seller.controller');
 
+const auth = require('../middlewares/auth.middleware');
+
 const validates = require('../validates/seller.validate');
 
 // @route   POST  api/seller/register
@@ -17,11 +19,11 @@ router.post('/register', validates.register, register);
 // @route   POST  api/seller/login
 // @desc    Login seller
 // @access  Public
-// router.post('/register', login);
+router.post('/login', validates.login, login);
 
 // @route   POST  api/seller
 // @desc    Register seller
 // @access  Private
-// router.get('/', getSeller);
+router.get('/', auth.getSeller, getSeller);
 
 module.exports = router;

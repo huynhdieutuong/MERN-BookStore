@@ -15,3 +15,8 @@ module.exports.register = [
     .matches(/[A-Z]/)
     .withMessage('Password must contain a Uppercase char')
 ];
+
+module.exports.login = [
+  check('email', 'Please enter a valid email').isEmail(),
+  check('password', 'Password is required').exists()
+];
