@@ -2,6 +2,36 @@ const { validationResult } = require('express-validator');
 
 const Book = require('../models/Book');
 
+module.exports.getBooks = async (req, res) => {
+  try {
+    const books = await Book.find().sort('-date');
+    res.json(books);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+module.exports.getMyBooks = async (req, res) => {
+  try {
+    const books = await Book.find({ seller: req.seller.id }).sort('-date');
+    res.json(books);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+module.exports.showBook = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    res.json(book);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
 module.exports.listBook = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
