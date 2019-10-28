@@ -24,6 +24,6 @@ router.post('/login', validates.login, login);
 // @route   POST  api/seller
 // @desc    Register seller
 // @access  Private
-router.get('/', auth.getSeller, getSeller);
+router.get('/', auth.seller, getSeller);
 
 module.exports = router;

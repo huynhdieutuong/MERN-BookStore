@@ -6,6 +6,12 @@ const bookSchema = new Schema({
     type: String,
     required: true
   },
+  images: [
+    {
+      type: String,
+      required: true
+    }
+  ],
   author: {
     type: String,
     required: true
@@ -14,13 +20,13 @@ const bookSchema = new Schema({
     type: Number,
     required: true
   },
-  discount: {
-    type: Number,
-    default: 0
-  },
   category: {
     type: String,
     required: true
+  },
+  discount: {
+    type: Number,
+    default: 0
   },
   views: {
     type: Number,

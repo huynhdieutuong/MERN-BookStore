@@ -12,6 +12,10 @@ const {
   addReview
 } = require('../controllers/books.controller');
 
+const validates = require('../validates/books.validate');
+
+const auth = require('../middlewares/auth.middleware');
+
 // @route   GET api/books
 // @desc    Get all books and sort by newest
 // @access  Public
@@ -35,17 +39,17 @@ const {
 // @route   POST api/books
 // @desc    List a new book
 // @access  Private
-// router.post('/', listBook);
+router.post('/', auth.seller, validates.listBook, listBook);
 
 // @route   DELETE api/books/:id
 // @desc    Delete a book
 // @access  Private
-// router.delete('/:id', deleteBook);
+// router.delete('/:id', auth.seller, deleteBook);
 
 // @route   PUT api/books/:id
 // @desc    Update a book
 // @access  Private
-// router.put('/:id', updateBook);
+// router.put('/:id', auth.seller, updateBook);
 
 // @route   POST api/books/reviews/:id
 // @desc    Add a review
