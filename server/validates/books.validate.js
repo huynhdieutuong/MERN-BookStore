@@ -23,3 +23,24 @@ module.exports.listBook = [
     .not()
     .isEmpty()
 ];
+
+module.exports.updateBook = [
+  check('title', 'Title is required')
+    .not()
+    .isEmpty(),
+  check('author', 'Please select author')
+    .not()
+    .isEmpty(),
+  check('price')
+    .matches(/\d/)
+    .withMessage('Please enter a number'),
+  check('category', 'Please select category')
+    .not()
+    .isEmpty(),
+  check('stock')
+    .matches(/\d/)
+    .withMessage('Please enter a number'),
+  check('body', 'Please enter description')
+    .not()
+    .isEmpty()
+];

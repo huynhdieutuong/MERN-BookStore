@@ -49,7 +49,7 @@ router.post('/', auth.seller, validates.listBook, listBook);
 // @route   PUT api/books/:id
 // @desc    Update a book
 // @access  Private
-// router.put('/:id', auth.seller, updateBook);
+router.put('/:id', auth.seller, validates.updateBook, updateBook);
 
 // @route   POST api/books/reviews/:id
 // @desc    Add a review
