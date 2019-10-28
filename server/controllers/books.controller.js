@@ -54,3 +54,59 @@ module.exports.updateBook = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+module.exports.deleteBook = async (req, res) => {
+  try {
+    let book = await Book.findById(req.params.id);
+
+    // Check if not book
+    if (!book) {
+      return res.status(404).json({ msg: 'Book not found' });
+    }
+
+    // Make sure seller ownes book
+    if (book.seller.toString() !== req.seller.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    // Delete Book
+    await Book.findByIdAndDelete(req.params.id);
+    res.json({ msg: `${book.title} deleted!` });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+module.exports.duplicateBook = async (req, res) => {
+  try {
+    let book = await Book.findById(req.params.id);
+
+    // Check if not book
+    if (!book) {
+      return res.status(404).json({ msg: 'Book not found' });
+    }
+
+    // Make sure seller ownes book
+    if (book.seller.toString() !== req.seller.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    // Duplicate Book
+    const newBook = await Book.create({
+      title: `${book.title} Copy`,
+      images: book.images,
+      author: book.author,
+      price: book.price,
+      category: book.category,
+      discount: book.discount,
+      stock: book.stock,
+      body: book.body,
+      seller: book.seller
+    });
+    res.json(newBook);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};

@@ -9,6 +9,7 @@ const {
   listBook,
   deleteBook,
   updateBook,
+  duplicateBook,
   addReview
 } = require('../controllers/books.controller');
 
@@ -44,12 +45,17 @@ router.post('/', auth.seller, validates.listBook, listBook);
 // @route   DELETE api/books/:id
 // @desc    Delete a book
 // @access  Private
-// router.delete('/:id', auth.seller, deleteBook);
+router.delete('/:id', auth.seller, deleteBook);
 
 // @route   PUT api/books/:id
 // @desc    Update a book
 // @access  Private
 router.put('/:id', auth.seller, validates.updateBook, updateBook);
+
+// @route   POST api/books/duplicate/:id
+// @desc    Duplicate book
+// @access  Private
+router.post('/duplicate/:id', auth.seller, duplicateBook);
 
 // @route   POST api/books/reviews/:id
 // @desc    Add a review
