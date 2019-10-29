@@ -22,6 +22,66 @@ module.exports.getMyBooks = async (req, res) => {
   }
 };
 
+module.exports.sortBooks = async (req, res) => {
+  let sortBy;
+  switch (req.query.s) {
+    case 'top-seller':
+      sortBy = '-numSold';
+      break;
+    case 'top-views':
+      sortBy = '-views';
+      break;
+    case 'top-discount':
+      sortBy = '-discount';
+      break;
+    case 'price-asc':
+      sortBy = 'lastPrice';
+      break;
+    case 'price-desc':
+      sortBy = '-lastPrice';
+      break;
+    default:
+      sortBy = '-date';
+  }
+  try {
+    const books = await Book.find().sort(sortBy);
+    res.json(books);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+module.exports.sortMyBooks = async (req, res) => {
+  let sortBy;
+  switch (req.query.s) {
+    case 'top-seller':
+      sortBy = '-numSold';
+      break;
+    case 'top-views':
+      sortBy = '-views';
+      break;
+    case 'top-discount':
+      sortBy = '-discount';
+      break;
+    case 'price-asc':
+      sortBy = 'lastPrice';
+      break;
+    case 'price-desc':
+      sortBy = '-lastPrice';
+      break;
+    default:
+      sortBy = '-date';
+  }
+  try {
+    const books = await Book.find({ seller: req.seller.id }).sort(sortBy);
+    res.json(books);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
 module.exports.showBook = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);

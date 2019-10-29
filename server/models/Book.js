@@ -16,15 +16,19 @@ const bookSchema = new Schema({
     type: String,
     required: true
   },
-  price: {
-    type: Number,
-    required: true
-  },
   category: {
     type: String,
     required: true
   },
   discount: {
+    type: Number,
+    default: 0
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  lastPrice: {
     type: Number,
     default: 0
   },
@@ -72,6 +76,11 @@ const bookSchema = new Schema({
     type: Date,
     default: Date.now
   }
+});
+
+bookSchema.pre('save', function(next) {
+  this.lastPrice = Math.round(this.price * (100 - this.discount)) / 100;
+  next();
 });
 
 const Book = mongoose.model('Book', bookSchema, 'books');

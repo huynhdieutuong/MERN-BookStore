@@ -5,6 +5,7 @@ const {
   getBooks,
   getMyBooks,
   sortBooks,
+  sortMyBooks,
   searchBooks,
   showBook,
   listBook,
@@ -31,7 +32,12 @@ router.get('/my', auth.seller, getMyBooks);
 // @route   GET api/books/sort?s=top-seller | top-views | top-discount | price-asc | price-desc
 // @desc    Get all books and sort by Top Seller | Top Views | Top Discount | Price: Low to High, High to Low
 // @access  Public
-// router.get('/sort', sortBooks);
+router.get('/sort', sortBooks);
+
+// @route   GET api/books/my/sort?s=top-seller | top-views | top-discount | price-asc | price-desc
+// @desc    Get all my books and sort by Top Seller | Top Views | Top Discount | Price: Low to High, High to Low
+// @access  Private
+router.get('/my/sort', auth.seller, sortMyBooks);
 
 // @route   GET api/books/search?q=text
 // @desc    Search books by title
