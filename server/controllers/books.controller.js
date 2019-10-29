@@ -82,6 +82,38 @@ module.exports.sortMyBooks = async (req, res) => {
   }
 };
 
+module.exports.searchBooks = async (req, res) => {
+  const text = req.query.q;
+  try {
+    const books = await Book.find();
+    const filtered = books.filter(
+      book =>
+        book.title.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
+        book.author.toLowerCase().indexOf(text.toLowerCase()) !== -1
+    );
+    res.json(filtered);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+module.exports.searchMyBooks = async (req, res) => {
+  const text = req.query.q;
+  try {
+    const books = await Book.find({ seller: req.seller.id });
+    const filtered = books.filter(
+      book =>
+        book.title.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
+        book.author.toLowerCase().indexOf(text.toLowerCase()) !== -1
+    );
+    res.json(filtered);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
+
 module.exports.showBook = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);

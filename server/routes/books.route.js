@@ -7,6 +7,7 @@ const {
   sortBooks,
   sortMyBooks,
   searchBooks,
+  searchMyBooks,
   showBook,
   listBook,
   deleteBook,
@@ -40,9 +41,14 @@ router.get('/sort', sortBooks);
 router.get('/my/sort', auth.seller, sortMyBooks);
 
 // @route   GET api/books/search?q=text
-// @desc    Search books by title
+// @desc    Search books by title or author
 // @access  Public
-// router.get('/search', searchBooks);
+router.get('/search', searchBooks);
+
+// @route   GET api/books/my/search?q=text
+// @desc    Search my books by title or author
+// @access  Private
+router.get('/my/search', auth.seller, searchMyBooks);
 
 // @route   GET api/books/:id
 // @desc    Get a book
