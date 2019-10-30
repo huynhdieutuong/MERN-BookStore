@@ -2,14 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const buyerSchema = new Schema({
-  googleID: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
   firstName: {
     type: String,
     required: true
@@ -18,7 +10,14 @@ const buyerSchema = new Schema({
     type: String,
     required: true
   },
-  image: String,
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
   phone: {
     type: String,
     required: true

@@ -22,7 +22,7 @@ router.post('/register', validates.register, register);
 router.post('/login', validates.login, login);
 
 // @route   POST  api/seller
-// @desc    Register seller
+// @desc    Get seller
 // @access  Private
 router.get('/', auth.seller, getSeller);
 
