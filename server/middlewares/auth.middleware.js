@@ -27,7 +27,7 @@ module.exports.admin = (req, res, next) => {
 
   // Verify token
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_ADMIN);
     req.admin = decoded.admin;
     next();
   } catch (error) {

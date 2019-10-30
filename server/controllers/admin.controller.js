@@ -33,7 +33,7 @@ module.exports.login = async (req, res) => {
 
     jwt.sign(
       payload,
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET_ADMIN,
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;
