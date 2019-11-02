@@ -44,3 +44,12 @@ module.exports.updateBook = [
     .not()
     .isEmpty()
 ];
+
+module.exports.addReview = [
+  check('reviewStar', 'Please select star')
+    .not()
+    .isEmpty(),
+  check('reviewComment', 'Please enter a comment')
+    .not()
+    .isEmpty()
+];

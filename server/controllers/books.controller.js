@@ -232,3 +232,34 @@ module.exports.duplicateBook = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+module.exports.addReview = async (req, res) => {
+  // Validate
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    let book = await Book.findById(req.params.id);
+    // Check if not book
+    if (!book) {
+      return res.status(404).json({ msg: 'Book not found' });
+    }
+
+    // Add review
+    const { reviewStar, reviewComment } = req.body;
+    const newReview = {
+      reviewStar,
+      reviewComment,
+      reviewUser: req.buyer.id
+    };
+    book.reviews = [...book.reviews, newReview];
+
+    book = await Book.findByIdAndUpdate(req.params.id, book, { new: true });
+    res.json(book);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server Error');
+  }
+};
